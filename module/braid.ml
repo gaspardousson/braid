@@ -57,12 +57,12 @@ let rec rewrite w =
             -> [], false
         |0::q
             -> let s = step q in fst s, true
-        |t1::t2::q when t1 = -t2
+        |i::j::q when i < 0 && j > 0 && abs(i+j) = 0
             -> let s = step q in fst s, true
-        |t1::t2::q when t1 < 0 && t2 > 0 && abs(t1+t2) = 1
-            ->  let s = step q in t2::(-t1)::(-t2)::t1::(fst s), true
-        |t1::t2::q when t1 < 0 && t2 > 0 && abs(t1+t2) > 1
-            -> let s = step q in t2::t1::(fst s), true
+        |i::j::q when i < 0 && j > 0 && abs(i+j) = 1
+            ->  let s = step q in j::(-i)::(-j)::i::(fst s), true
+        |i::j::q when i < 0 && j > 0 && abs(i+j) > 1
+            -> let s = step q in j::i::(fst s), true
         |t::q
             -> let s = step q in t::(fst s), snd s
     in let w, c = step w
