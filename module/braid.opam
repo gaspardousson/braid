@@ -25,4 +25,4 @@ depends: [
   "ocamlfind" {build & >= "1.7.3"}
 ]
 synopsis:
-  "OCaml module implementing an algorithm to solve word problem in the braid group."
+  "OCaml module implementing an algorithm to solve word problem in the braid group"
