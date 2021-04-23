@@ -75,11 +75,11 @@ let rewrite w =
     in mirror (aux w []) [];;
 
 let break_down w =
-    let rec aux w u v = match w with
-        [] -> (inverse u), v
-        |t::q when t>0 -> aux q ((-t)::u) v
-        |t::q -> aux q u ((-t)::v)
-    in aux w [] [];;
+    let rec aux w = match w with
+        [] -> [], []
+        |t::q when t>0 -> let u,v = aux q in t::u,v
+        |t::q -> let u,v = aux q in u,t::v
+    in let u,v = aux w in u,inverse v;;
 
 let is_empty w =
     let u,v = break_down (rewrite w) in rewrite ((inverse u)@v) = [];;
