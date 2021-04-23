@@ -76,9 +76,8 @@ let rewrite w =
 
 let break_down w =
     let rec aux w = match w with
-        [] -> [], []
         |t::q when t>0 -> let u,v = aux q in t::u,v
-        |t::q -> let u,v = aux q in u,t::v
+        |v -> [],v
     in let u,v = aux w in u,inverse v;;
 
 let is_empty w =
