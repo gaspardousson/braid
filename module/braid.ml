@@ -45,28 +45,34 @@ let is_pure w =
     let rec aux top bot n read_w w  = match read_w with
         [] when bot = top -> if top < n then aux (top+1) (top+1) n w w else true
         |[] -> false
+        |0::q -> aux top bot n q w
         |t::q -> let x=abs t in if x=bot-1 then aux top (bot-1) n q w
                                 else if x=bot then aux top (bot+1) n q w
                                 else aux top bot n q w
     in aux 1 1 (max w) w w;;
 
 (* Rewriting algorithm *)
-let rec rewrite w =
-    let rec step w = match w with
-        []
-            -> [], false
-        |0::q
-            -> let s = step q in fst s, true
-        |i::j::q when i < 0 && j > 0 && abs(i+j) = 0
-            -> let s = step q in fst s, true
-        |i::j::q when i < 0 && j > 0 && abs(i+j) = 1
-            ->  let s = step q in j::(-i)::(-j)::i::(fst s), true
-        |i::j::q when i < 0 && j > 0 && abs(i+j) > 1
-            -> let s = step q in j::i::(fst s), true
-        |t::q
-            -> let s = step q in t::(fst s), snd s
-    in let w, c = step w
-    in if c then rewrite w else w;;
+let rewrite w =
+    let rec mirror w acc = match w with
+        [] -> acc
+        |t::q -> mirror q (t::acc)
+    in
+    let rec aux w1 w2 = match w1 with
+        [] -> w2
+        |0::q1 -> (match w2 with
+            [] -> aux q1 []
+            |h::q2 -> aux (h::q1) q2)
+        |i::j::q1 when i<0 && j>0 && abs(i+j)=0 -> (match w2 with
+            [] -> aux q1 []
+            |h::q2 -> aux (h::q1) q2)
+        |i::j::q1 when i<0 && j>0 && abs(i+j)=1 -> (match w2 with
+            [] -> aux (j::(-i)::(-j)::i::q1) []
+            |h::q2 -> aux (h::j::(-i)::(-j)::i::q1) q2)
+        |i::j::q1 when i<0 && j>0 && abs(i+j)>1 -> (match w2 with
+            [] -> aux (j::i::q1) []
+            |h::q2 -> aux (h::j::i::q1) q2)
+        |h::q -> aux q (h::w2)
+    in mirror (aux w []) [];;
 
 let break_down w =
     let rec aux w u v = match w with
