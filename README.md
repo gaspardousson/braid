@@ -10,4 +10,4 @@ Braid est un module OCaml implémentant l'algorithme de retournement qui résout
 
 ### Utilisation
 
-Le module peut être utilisé en étant appelé avec `#use braid.ml` puis `open Braid`. Son installation via `opam` n'a pas encore été configurée.
+Le module peut être utilisé en étant appelé avec `#use braid.ml` puis `open Braid;;`. Son installation via `opam` n'a pas encore été configurée.
