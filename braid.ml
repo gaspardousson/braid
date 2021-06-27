@@ -16,23 +16,26 @@ sig
 end =
 struct
 
-let string_of_sigma = string_of_int
+let string_of_sigma s = match s with
+    |0 -> "\\epsilon"
+    |_ when s > 0 -> "\\sigma_{"^(string_of_int s)^"}"
+    |_ -> "\\sigma_{"^(string_of_int (-s))^"}^{-1}"
+
 let string_of_braid b =
     let rec aux b = match b with
-        [] -> "]"
-        |t::[] -> (string_of_sigma t)^"]"
-        |t::q -> (string_of_sigma t)^";"^(aux q)
-    in "["^(aux b)
+        |[] -> ""
+        |t::q -> (string_of_sigma t)^(aux q)
+    in (aux b)
 
 let inverse b =
     let rec aux b acc = match b with
-        [] -> acc
+        |[] -> acc
         |t::q -> aux q (-t::acc)
     in aux b []
 
 let is_pure b =
     let max b = match b with
-        [] -> 0
+        |[] -> 0
         |t::q -> let rec aux l m = match l with
                     [] -> m
                     |t::q when t>m -> aux q t
@@ -40,7 +43,7 @@ let is_pure b =
                  in aux q t
     in
     let rec aux top bot n read_w b  = match read_w with
-        [] when bot = top -> if top < n then aux (top+1) (top+1) n b b else true
+        |[] when bot = top -> if top < n then aux (top+1) (top+1) n b b else true
         |[] -> false
         |0::q -> aux top bot n q b
         |t::q -> let x=abs t in if x=bot-1 then aux top (bot-1) n q b
@@ -50,11 +53,11 @@ let is_pure b =
 
 let rewrite b =
     let rec mirror b acc = match b with
-        [] -> acc
+        |[] -> acc
         |t::q -> mirror q (t::acc)
     in
     let rec aux b1 b2 = match b1 with
-        [] -> b2
+        |[] -> b2
         |0::q1 -> (match b2 with
             [] -> aux q1 []
             |h::q2 -> aux (h::q1) q2)
@@ -77,7 +80,7 @@ let decompose b =
     in let b1,b2 = aux b in b1,inverse b2
 
 
-let is_empty b = let b1,b2 = decompose (rewrite b) in rewrite ((inverse b1)@b2) = [];;
+let is_empty b = (is_pure b) && (let b1,b2 = decompose (rewrite b) in rewrite ((inverse b1)@b2) = []);;
 let is_equiv b1 b2 = is_empty (b1@(inverse b2))
 
 end;;
