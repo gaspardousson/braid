@@ -1,13 +1,13 @@
 # Braid
 
-Braid est un module OCaml implémentant l'algorithme de retournement qui résout le problème du mot dans le cadre du groupe des tresses.
+Braid is an OCaml module implementing the reversing algorithm on braids groups to solve the word problem.
 
-### Contenu
+### Content
 
-* `braid.pdf` : Document résumant les bases de la théorie mathématique des tresses et explicitant le principe de l'algorithme de retournement, accompagné d'une étude expérimentale de sa complexité.
+* `braid.ml` : The complete module.
 
-* `module` : Ensemble du code du module avec son interface.
+* `braid.pdf` : A brief secondary document in French explaining math behind braids and studying the algorithm and its complexity.
 
-### Utilisation
+### Import
 
-Le module peut être utilisé en étant appelé avec `#use braid.ml` puis `open Braid;;`. Son installation via `opam` n'a pas encore été configurée.
+The module can be called using `#use braid.ml` and `open Braid;;`.
