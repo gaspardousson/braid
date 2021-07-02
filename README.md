@@ -18,10 +18,10 @@ The module can be called using `#use braid.ml` and `open Braid;;`.
 ### Documentation
 
 * `string_of_sigma : int -> string` converts a sigma (numbered crossing) into a string, compilable in LaTeX
-* `string_of_braid : int -> string` converts a braid (list of sigmas) into a string, compilable in LaTeX
+* `string_of_braid : int list -> string` converts a braid (list of sigmas) into a string, compilable in LaTeX
 * `inverse : int list -> int list` returns the input's inverse braid
 * `is_pure: int list -> bool` returns if the input is a pure braid
-* `rewrite: int list -> int list` returns the input's Ore decomposition
-* `decompose: int list -> (int list)*(int list)` returns positive braids of an Ore decomposition input
+* `rewrite: int list -> int list` returns the input's decomposition
+* `decompose: int list -> (int list)*(int list)` returns positive braids of a decomposed input
 * `is_empty: int list -> bool` returns if the input is equivalent to the empty braid
 * `is_equiv: int list -> bool` returns if the first input is equivalent to the second
