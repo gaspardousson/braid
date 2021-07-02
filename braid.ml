@@ -80,7 +80,7 @@ let decompose b =
     in let b1,b2 = aux b in b1,inverse b2
 
 
-let is_empty b = (is_pure b) && (let b1,b2 = decompose (rewrite b) in rewrite ((inverse b1)@b2) = []);;
+let is_empty b = (is_pure b) && (let b1,b2 = decompose (rewrite b) in rewrite ((inverse b1)@b2) = [])
 let is_equiv b1 b2 = is_empty (b1@(inverse b2))
 
 end;;
