@@ -8,7 +8,7 @@ sig
     val is_pure: int list -> bool
 
     val rewrite: int list -> int list
-    val decompose: int list -> (int list)*(int list)
+    val decompose: int list -> int list * int list
 
     val is_empty: int list -> bool
     val is_equiv: int list -> int list -> bool

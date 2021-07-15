@@ -22,6 +22,6 @@ The module can be called using `#use braid.ml` and `open Braid;;`.
 * `inverse : int list -> int list` returns the input's inverse braid
 * `is_pure: int list -> bool` returns if the input is a pure braid
 * `rewrite: int list -> int list` returns the input's decomposition
-* `decompose: int list -> (int list)*(int list)` returns positive braids of a decomposed input
+* `decompose: int list -> int list * int list` returns positive braids of a decomposed input
 * `is_empty: int list -> bool` returns if the input is equivalent to the empty braid
 * `is_equiv: int list -> bool` returns if the first input is equivalent to the second
